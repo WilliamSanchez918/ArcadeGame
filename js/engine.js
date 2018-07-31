@@ -79,7 +79,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -94,6 +94,22 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+    }
+
+    function checkCollisions() {
+        //Checks enemy position from player position *aoe 50 units
+        allEnemies.forEach(function(enemy) {
+            if((player.y-5 == enemy.y) && (player.x < enemy.x+50 && player.x > enemy.x-50)){
+                //reset
+                player.x = 200;
+                player.y = 390;
+                 console.log('reset')
+             } 
+             if(player.y == 0) {
+                //WINNER - resets player position
+                reset(); 
+             } 
+        })
     }
 
     /* This function initially draws the "game level", it will then call
@@ -161,6 +177,8 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
+        player.x = 200;
+        player.y = 390;
         // noop
     }
 
@@ -173,7 +191,8 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/Rock.png'
     ]);
     Resources.onReady(init);
 
