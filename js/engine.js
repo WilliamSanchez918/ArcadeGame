@@ -122,19 +122,16 @@ var Engine = (function(global) {
                 reset(); 
              } 
 
-        })
-
-        
+        })       
     }
-    /* This adds speed buff to opponents upon winning; upon defeat it slows them down by 25%
-     *
-    */
+
+   //speed increase
     function speedBuff(enemy) {
         allEnemies.forEach(function(enemy) {
             enemy.speed += enemy.speed * player.multi;
         })
     }
-
+    //speed reset
     function speedNurf() {
         allEnemies.forEach(function(enemy) {
             enemy.speed = enemy.default;
