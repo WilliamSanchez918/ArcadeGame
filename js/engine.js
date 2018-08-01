@@ -134,6 +134,7 @@ var Engine = (function(global) {
     //speed reset
     function speedNurf() {
         allEnemies.forEach(function(enemy) {
+            //default speed assigned in enemy constructor func - app.js
             enemy.speed = enemy.default;
         })
     }
