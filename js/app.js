@@ -30,10 +30,11 @@ Enemy.prototype.render = function() {
 };
 
 class Player {
-    constructor(sprite = 'images/char-boy.png', x = 200, y = 390) {
+    constructor(sprite = 'images/char-boy.png', x = 200, y = 390, select = false) {
         this.sprite = sprite;
         this.x = x;
         this.y = y;
+        this.select = select; 
     }
     update(x, y) {
         if (this.x > 400) {
@@ -57,8 +58,9 @@ class Player {
 
     }
     handleInput(e) {
+        if (player.select === true) {
         // Detects when a collision happens and move the player back to initial position
-        switch(e) {
+            switch(e) {
             case 'left':
                 this.x -= 100;
                 break;
@@ -71,13 +73,12 @@ class Player {
             case 'down':
                 this.y += 80;
                 break;
+                }
+            this.update(this.x, this.y)
+            }
         }
-        this.update(this.x, this.y)
-
-
 
     }
-}
 
 const allEnemies = [
     new Enemy('images/enemy-bug.png', 0, 65, 100),
@@ -110,22 +111,39 @@ document.addEventListener('keyup', function(e) {
 
 (function charDialog() {
 
-    var submitButton = document.getElementById('submit');
-    var selection = document.getElementById('playerSelect');
+    let selection = document.getElementById('playerSelect');
     selection.showModal();
     // Update button opens a modal dialog
-    document.getElementById("dialog").addEventListener("submit", charSelect);
+    document.getElementById("boy").addEventListener("click", function() {
+        charSelect(1);
+    });
+    document.getElementById("princess").addEventListener("click", function() {
+        charSelect(2);
+    });
+    document.getElementById("catGirl").addEventListener("click", function() {
+        charSelect(3);
+    });
     // Form cancel button closes the dialog box
     // cancelButton.addEventListener('click', function() {
     //   favDialog.close();
     // });
   })();
 
-  function charSelect() {
-    console.log(`it works`)
+  function charSelect(num) {
+    player.select = true;
+    console.log(`it works ${num}`);
+
+    if (num == 1) {
+        player.sprite = 'images/char-boy.png';
+    } else if (num == 2) {
+        player.sprite = 'images/char-princess-girl.png';
+    } else player.sprite = 'images/char-cat-girl.png';
+    let selection = document.getElementById('playerSelect');
+    selection.close();
   }
 
   function showDialog() {
+    player.select = false;
     var selection = document.getElementById('playerSelect');
     selection.showModal();
   }

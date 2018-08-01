@@ -1,3 +1,45 @@
 body {
     text-align: center;
 }
+
+.container {
+    display: flex;
+  }
+
+#boy {
+    height: 250px;
+    width: 33%;
+
+}
+#boy:hover, #princess:hover, #catGirl:hover {
+    animation-name: lightGlowing;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    background-color: greenyellow;
+}
+
+#princess {
+    height: 250px;
+    width: 33%;
+}
+
+#catGirl {
+    height: 250px;
+    width: 33%;
+}
+
+
+@keyframes lightGlowing {
+    50% {   
+          -ms-transform: scale(1.01, 1.01); /* IE 9 */
+          -webkit-transform: scale(1.01, 1.01); /* Safari */
+          transform: scale(1.01, 1.01);
+          box-shadow: 1px 1px 1px black; 
+       }
+    100% {   
+          -ms-transform: scale(1.02, 1.02); /* IE 9 */
+          -webkit-transform: scale(1.02, 1.02); /* Safari */
+          transform: scale(1.02, 1.02);
+          box-shadow: 2px 2px 2px black; 
+    }
+}
