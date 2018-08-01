@@ -106,3 +106,26 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+
+(function charDialog() {
+
+    var submitButton = document.getElementById('submit');
+    var selection = document.getElementById('playerSelect');
+    selection.showModal();
+    // Update button opens a modal dialog
+    document.getElementById("dialog").addEventListener("submit", charSelect);
+    // Form cancel button closes the dialog box
+    // cancelButton.addEventListener('click', function() {
+    //   favDialog.close();
+    // });
+  })();
+
+  function charSelect() {
+    console.log(`it works`)
+  }
+
+  function showDialog() {
+    var selection = document.getElementById('playerSelect');
+    selection.showModal();
+  }

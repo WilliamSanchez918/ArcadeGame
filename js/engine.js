@@ -104,6 +104,7 @@ var Engine = (function(global) {
                 player.x = 200;
                 player.y = 390;
                  console.log('reset')
+                 showDialog();
              } 
              if(player.y == 0) {
                 //WINNER - resets player position
