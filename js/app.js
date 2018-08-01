@@ -36,7 +36,7 @@ class Player {
         this.y = y;
         this.select = select; 
     }
-    update(x, y) {
+    update(min, max) {
         if (this.x > 400) {
             this.x = 400;
         }
@@ -84,6 +84,7 @@ const allEnemies = [
     new Enemy('images/enemy-bug.png', 0, 65, 100),
     new Enemy('images/Rock.png', 0, 145, 250),
     new Enemy('images/enemy-bug.png', 0, 225, 160),
+    new Enemy('images/Star.png', 0, 305, 50)
 ]
 
 const player = new Player();

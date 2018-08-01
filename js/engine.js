@@ -105,11 +105,31 @@ var Engine = (function(global) {
                 player.y = 390;
                  console.log('reset')
                  showDialog();
+                 speedNurf()
              } 
              if(player.y == 0) {
                 //WINNER - resets player position
+                //adds slight speed buff for added flavor
+                speedBuff()
                 reset(); 
              } 
+
+        })
+
+        
+    }
+    /* This adds speed buff to opponents upon winning; upon defeat it slows them down by 25%
+     *
+    */
+    function speedBuff(enemy) {
+        allEnemies.forEach(function(enemy) {
+            enemy.speed += 20;
+        })
+    }
+
+    function speedNurf() {
+        allEnemies.forEach(function(enemy) {
+            enemy.speed -= 5;
         })
     }
 
@@ -195,7 +215,8 @@ var Engine = (function(global) {
         'images/char-boy.png',
         'images/Rock.png',
         'images/char-cat-girl.png',
-        'images/char-princess-girl.png' 
+        'images/char-princess-girl.png',
+        'images/Star.png' 
     ]);
     Resources.onReady(init);
 
