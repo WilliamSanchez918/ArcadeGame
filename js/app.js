@@ -62,8 +62,9 @@ class Player {
 
     }
     handleInput(e) {
+            //player select default state is false; once a character is selected the event listener keys can be utilized for movement of player
         if (player.select === true) {
-        // Detects when a collision happens and move the player back to initial position
+        // moves player
             switch(e) {
             case 'left':
                 this.x -= 100;
@@ -109,40 +110,44 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
-
+// Character selection func, self invoking
 (function charDialog() {
 
     let selection = document.getElementById('playerSelect');
     selection.showModal();
-    // Update button opens a modal dialog
+    // opens a modal dialog
     document.getElementById("boy").addEventListener("click", function() {
         charSelect(1);
+        //boy
     });
     document.getElementById("princess").addEventListener("click", function() {
         charSelect(2);
+        //princess
     });
     document.getElementById("catGirl").addEventListener("click", function() {
         charSelect(3);
+        //cat girl
     });
-    // Form cancel button closes the dialog box
-    // cancelButton.addEventListener('click', function() {
-    //   favDialog.close();
-    // });
+
   })();
 
+  // assigning selected sprite to player object, and allowing movement 
   function charSelect(num) {
+    //checksum for moving player
     player.select = true;
-    console.log(`it works ${num}`);
 
     if (num == 1) {
+        //boy
         player.sprite = 'images/char-boy.png';
     } else if (num == 2) {
+        //princess
         player.sprite = 'images/char-princess-girl.png';
     } else player.sprite = 'images/char-cat-girl.png';
     let selection = document.getElementById('playerSelect');
     selection.close();
   }
 
+  // used on reset/win function
   function showDialog() {
     player.select = false;
     var selection = document.getElementById('playerSelect');
