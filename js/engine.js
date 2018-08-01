@@ -105,12 +105,20 @@ var Engine = (function(global) {
                 player.y = 390;
                  console.log('reset')
                  showDialog();
-                 speedNurf()
+                 player.streak = 0;
+                 player.multi = 0;
+                 document.getElementById("multiVal").innerHTML = player.multi;
+                 document.getElementById("streakVal").innerHTML = player.streak;
+                 speedNurf();
              } 
              if(player.y == 0) {
                 //WINNER - resets player position
                 //adds slight speed buff for added flavor
                 speedBuff()
+                player.streak += 1;
+                player.multi += .10;
+                document.getElementById("multiVal").innerHTML = player.multi;
+                document.getElementById("streakVal").innerHTML = player.streak;
                 reset(); 
              } 
 
@@ -123,13 +131,13 @@ var Engine = (function(global) {
     */
     function speedBuff(enemy) {
         allEnemies.forEach(function(enemy) {
-            enemy.speed += 20;
+            enemy.speed += enemy.speed * player.multi;
         })
     }
 
     function speedNurf() {
         allEnemies.forEach(function(enemy) {
-            enemy.speed -= 5;
+            enemy.speed = enemy.default;
         })
     }
 

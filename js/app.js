@@ -9,6 +9,7 @@ var Enemy = function(imageT, x, y, speed) {
     this.speed = speed;
     this.x = x;
     this.y = y;
+    this.default = speed;
 };
 
 // Update the enemy's position, required method for game
@@ -29,12 +30,15 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+
 class Player {
-    constructor(sprite = 'images/char-boy.png', x = 200, y = 390, select = false) {
+    constructor(sprite = 'images/char-boy.png', x = 200, y = 390, select = false, streak = 0, multi = 0) {
         this.sprite = sprite;
         this.x = x;
         this.y = y;
         this.select = select; 
+        this.streak = streak;
+        this.multi = multi;
     }
     update(min, max) {
         if (this.x > 400) {
@@ -89,11 +93,7 @@ const allEnemies = [
 
 const player = new Player();
 
-
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-
+const defaultSpeeds = [];
 
 
 // This listens for key presses and sends the keys to your
