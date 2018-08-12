@@ -32,7 +32,7 @@ Enemy.prototype.render = function() {
 
 
 class Player {
-    constructor(sprite = 'images/char-boy.png', x = 200, y = 390, select = false, streak = 0, multi = 0) {
+    constructor(sprite = 'images/char-boy.png', x = 200, y = 470, select = false, streak = 0, multi = 0) {
         this.sprite = sprite;
         this.x = x;
         this.y = y;
@@ -47,8 +47,8 @@ class Player {
         if (this.x < 0) {
             this.x = 0;
         }
-        if (this.y > 390) {
-            this.y = 390;
+        if (this.y > 470) {
+            this.y = 470;
         }
         if (this.y < 0) {
             this.y = 0;

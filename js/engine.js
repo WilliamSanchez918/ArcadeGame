@@ -102,7 +102,7 @@ var Engine = (function(global) {
             if((player.y-5 == enemy.y) && (player.x < enemy.x+50 && player.x > enemy.x-50)){
                 //reset
                 player.x = 200;
-                player.y = 390;
+                player.y = 470;
                  console.log('reset')
                  showDialog();
                  player.streak = 0;
