@@ -86,6 +86,16 @@ class Player {
 
     }
 
+class Item {
+    constructor(sprite = "", x = 0, y = 0,) {
+        this.sprite = sprite;
+        this.x = x;
+        this.y = y;
+    }
+    extraPoints() {
+        // null
+    }
+}
 const allEnemies = [
     new Enemy('images/enemy-bug.png', 0, 65, 100),
     new Enemy('images/Rock.png', 0, 145, 250),

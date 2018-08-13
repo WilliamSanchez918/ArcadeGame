@@ -94,7 +94,8 @@ var Engine = (function(global) {
         //Checks enemy position from player position *aoe 50 units
         allEnemies.forEach(function(enemy) {
             if((player.y-5 == enemy.y) && (player.x < enemy.x+50 && player.x > enemy.x-50)){
-                //reset
+                //reset pause
+                player.select = false;
                 player.x = 200;
                 player.y = 470;
                  //
@@ -103,24 +104,11 @@ var Engine = (function(global) {
                  lives.classList.add("fadeOut")
                  setTimeout(function(){
                     list.removeChild(lives);
+                    player.select = true;
                  }, 500);  
                  player.lives -= 1;
                  if (player.lives == 0) {
-                    player.lives = 3;
-                    player.level = 1
-                    player.multi = 0;
-                    speedNurf();
-                    console.log('reset');
-                    console.log(player.lives);
-                    showDialog();
-                    for (a = 0; a < 3; a++) {
-                        let container = document.getElementById("livesContainer");
-                        let newDiv = document.createElement("div");
-                        container.appendChild(newDiv);
-                        newDiv.id ='lives';
-                    }
-                    document.getElementById("multiVal").innerHTML = player.multi;
-                    document.getElementById("streakVal").innerHTML = player.level;
+                    gameReset();
                  }
              } 
              if(player.y == 0) {
@@ -150,7 +138,24 @@ var Engine = (function(global) {
             enemy.speed = enemy.default;
         })
     }
-
+    //game reset
+    function gameReset() {
+        player.lives = 3;
+        player.level = 1
+        player.multi = 0;
+        speedNurf();
+        console.log('reset');
+        console.log(player.lives);
+        showDialog();
+        for (a = 0; a < 3; a++) {
+            let container = document.getElementById("livesContainer");
+            let newDiv = document.createElement("div");
+            container.appendChild(newDiv);
+            newDiv.id ='lives';
+        }
+        document.getElementById("multiVal").innerHTML = player.multi;
+        document.getElementById("streakVal").innerHTML = player.level;
+    }
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
      * game tick (or loop of the game engine) because that's how games work -
