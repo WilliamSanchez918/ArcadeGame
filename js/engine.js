@@ -100,7 +100,10 @@ var Engine = (function(global) {
                  //
                  let list = document.getElementById("livesContainer");
                  let lives = document.getElementById("lives");
-                 list.removeChild(lives);    
+                 lives.classList.add("fadeOut")
+                 setTimeout(function(){
+                    list.removeChild(lives);
+                 }, 500);  
                  player.lives -= 1;
                  if (player.lives == 0) {
                     player.lives = 3;
