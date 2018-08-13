@@ -32,13 +32,14 @@ Enemy.prototype.render = function() {
 
 
 class Player {
-    constructor(sprite = 'images/char-boy.png', x = 200, y = 470, select = false, streak = 0, multi = 0) {
+    constructor(sprite = 'images/char-boy.png', x = 200, y = 470, select = false, level = 1, multi = 0, lives = 3) {
         this.sprite = sprite;
         this.x = x;
         this.y = y;
         this.select = select; 
-        this.streak = streak;
+        this.level = level;
         this.multi = multi;
+        this.lives = lives;
     }
     update(min, max) {
         if (this.x > 400) {

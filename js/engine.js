@@ -1,14 +1,5 @@
 /* Engine.js
- * This file provides the game loop functionality (update entities and render),
- * draws the initial game board on the screen, and then calls the update and
- * render methods on your player and enemy objects (defined in your app.js).
- *
- * A game engine works by drawing the entire game screen over and over, kind of
- * like a flipbook you may have created as a kid. When your player moves across
- * the screen, it may look like just that image/character is moving or being
- * drawn but that is not the case. What's really happening is the entire "scene"
- * is being drawn over and over, presenting the illusion of animation.
- *
+
  * This engine makes the canvas' context (ctx) object globally available to make 
  * writing app.js a little simpler to work with.
  */
@@ -23,6 +14,9 @@ var Engine = (function(global) {
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
         lastTime;
+        x = canvas;
+        x.classList.add("canvas");
+        x=null;
 
     canvas.width = 505;
     canvas.height = 700;
@@ -103,22 +97,28 @@ var Engine = (function(global) {
                 //reset
                 player.x = 200;
                 player.y = 470;
-                 console.log('reset')
-                 showDialog();
-                 player.streak = 0;
-                 player.multi = 0;
-                 document.getElementById("multiVal").innerHTML = player.multi;
-                 document.getElementById("streakVal").innerHTML = player.streak;
-                 speedNurf();
+                 //
+                 player.lives -= 1;
+                 if (player.lives == 0) {
+                    player.lives = 3;
+                    player.level = 1
+                    player.multi = 0;
+                    speedNurf();
+                    console.log('reset');
+                    console.log(player.lives);
+                    showDialog();
+                    document.getElementById("multiVal").innerHTML = player.multi;
+                    document.getElementById("streakVal").innerHTML = player.level;
+                 }
              } 
              if(player.y == 0) {
                 //WINNER - resets player position
                 //adds slight speed buff for added flavor
                 speedBuff()
-                player.streak += 1;
+                player.level += 1;
                 player.multi += .10;
                 document.getElementById("multiVal").innerHTML = player.multi;
-                document.getElementById("streakVal").innerHTML = player.streak;
+                document.getElementById("streakVal").innerHTML = player.level;
                 reset(); 
              } 
 
@@ -224,7 +224,8 @@ var Engine = (function(global) {
         'images/char-cat-girl.png',
         'images/char-princess-girl.png',
         'images/Star.png',
-        'images/sandblock.png' 
+        'images/sandblock.png',
+        'images/Heart.png'
     ]);
     Resources.onReady(init);
 
