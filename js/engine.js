@@ -98,6 +98,9 @@ var Engine = (function(global) {
                 player.x = 200;
                 player.y = 470;
                  //
+                 let list = document.getElementById("livesContainer");
+                 let lives = document.getElementById("lives");
+                 list.removeChild(lives);    
                  player.lives -= 1;
                  if (player.lives == 0) {
                     player.lives = 3;
@@ -107,6 +110,12 @@ var Engine = (function(global) {
                     console.log('reset');
                     console.log(player.lives);
                     showDialog();
+                    for (a = 0; a < 3; a++) {
+                        let container = document.getElementById("livesContainer");
+                        let newDiv = document.createElement("div");
+                        container.appendChild(newDiv);
+                        newDiv.id ='lives';
+                    }
                     document.getElementById("multiVal").innerHTML = player.multi;
                     document.getElementById("streakVal").innerHTML = player.level;
                  }
