@@ -1,38 +1,27 @@
 // Enemies our player must avoid
-var Enemy = function(imageT, x, y, speed) {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-    this.sprite = imageT;
+class Enemy {
+    constructor(sprite = imageT, x, y, speed) {
+    this.sprite = sprite;
     this.speed = speed;
     this.x = x;
     this.y = y;
     this.default = speed;
-};
-
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function(dt) {
-    if (this.x < 500) {
-        this.x += this.speed * dt 
-    } else if (this.x >= 500){
-        this.x = -50;
     }
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-};
-
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
-
+    update (dt) {
+        if (this.x < 500) {
+            this.x += this.speed * dt 
+        } else if (this.x >= 500){
+            this.x = -50;
+        } 
+    }
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
+}
+// Player object
 class Player {
-    constructor(sprite = 'images/char-boy.png', x = 200, y = 470, select = false, level = 1, multi = 0, lives = 3) {
+    constructor(
+        sprite = 'images/char-boy.png', x = 200, y = 470, select = false, level = 1, multi = 0, lives = 3, points = 0) {
         this.sprite = sprite;
         this.x = x;
         this.y = y;
@@ -40,6 +29,7 @@ class Player {
         this.level = level;
         this.multi = multi;
         this.lives = lives;
+        this.points = points;
     }
     update(min, max) {
         if (this.x > 400) {
@@ -85,16 +75,41 @@ class Player {
         }
 
     }
+const allItems = [];
 
+function randomGen() { 
+        //randomly generates at each round start * multiplier adds .02 probability of appearance be default.
+        let randomNum = Math.floor((Math.random() * 100) + 1);
+        console.log(randomNum);
+        if (randomNum >= 95) {
+            console.log(`SUMMON BLUE GEM`);
+            allItems.push(new Item('images/Gem-Blue.png',10, 25, 430 ))
+        } else if (randomNum >= 80) {
+            console.log(`SUMMON2`);
+        } else if (randomNum >= 70) {
+            console.log(`SUMMON3`)
+        }
+    }    
 class Item {
-    constructor(sprite = "", x = 0, y = 0,) {
+    constructor(sprite = "", quality = 0, x = 0, y = 0,) {
         this.sprite = sprite;
+        this.quality = quality;
         this.x = x;
         this.y = y;
+    }
+    update(effect) {
+        //set parameters
+    }
+
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+
     }
     extraPoints() {
         // null
     }
+
+
 }
 const allEnemies = [
     new Enemy('images/enemy-bug.png', 0, 65, 100),

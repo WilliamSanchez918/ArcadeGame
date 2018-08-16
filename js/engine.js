@@ -87,7 +87,13 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
+
+        allItems.forEach(function(item) {
+            item.update(dt);
+        })
         player.update();
+
+
     }
 
     function checkCollisions() {
@@ -122,8 +128,10 @@ var Engine = (function(global) {
                 reset(); 
              } 
 
-        })       
-    }
+        });
+        allItems.forEach(function(item) {
+        });      
+    } 
 
    //speed increase
     function speedBuff(enemy) {
@@ -214,6 +222,10 @@ var Engine = (function(global) {
             enemy.render();
         });
 
+        allItems.forEach(function(item){
+            item.render();
+        })
+
         player.render();
     }
 
@@ -242,7 +254,8 @@ var Engine = (function(global) {
         'images/char-princess-girl.png',
         'images/Star.png',
         'images/sandblock.png',
-        'images/Heart.png'
+        'images/Heart.png',
+        'images/Gem-Blue.png'
     ]);
     Resources.onReady(init);
 
