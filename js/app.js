@@ -21,7 +21,7 @@ class Enemy {
 // Player object
 class Player {
     constructor(
-        sprite = 'images/char-boy.png', x = 200, y = 470, select = false, level = 1, multi = 0, lives = 3, points = 0) {
+        sprite = 'images/char-boy.png', x = 200, y = 470, select = false, level = 1, multi = 0, lives = 3, points = 0, timer = 60000) {
         this.sprite = sprite;
         this.x = x;
         this.y = y;
@@ -30,6 +30,7 @@ class Player {
         this.multi = multi;
         this.lives = lives;
         this.points = points;
+        this.timer = timer;
     }
     update(min, max) {
         if (this.x > 400) {

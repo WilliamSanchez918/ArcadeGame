@@ -74,6 +74,14 @@ var Engine = (function(global) {
     function update(dt) {
         updateEntities(dt);
         checkCollisions();
+        if (player.select == true) {
+            player.timer -= 1;
+            console.log(player.timer);
+            if (player.timer == 0) {
+                //TIME OUT//
+
+            }
+        }
     }
 
     /* This is called by the update function and loops through all of the
@@ -90,31 +98,31 @@ var Engine = (function(global) {
         player.update();
     }
 
-    function checkCollisions() {
-        //Checks enemy position from player position *aoe 50 units
-        allEnemies.forEach(function(enemy) {
-            if((player.y-5 == enemy.y) && (player.x < enemy.x+50 && player.x > enemy.x-50)){
-                //reset pause
-                player.select = false;
-                player.x = 200;
-                player.y = 470;
-                 //
-                 let list = document.getElementById("livesContainer");
-                 let lives = document.getElementById("lives");
-                 lives.classList.add("fadeOut")
+    //collision functions()
+    //generic reset
+    function resetPlayer() {
+        player.select = false;
+        player.x = 200;
+        player.y = 470;
+         //
+         let list = document.getElementById("livesContainer");
+         let lives = document.getElementById("lives");
+         lives.classList.add("fadeOut")
 
-                 player.lives -= 1;
-                 if (player.lives == 0) {
-                    gameReset();
-                    list.removeChild(lives)
-                 } else {
-                    setTimeout(function(){
-                            list.removeChild(lives);
-                            player.select = true;
-                            }, 500); 
-                        } 
-             } 
-             if(player.y == 0) {
+         player.lives -= 1;
+         if (player.lives == 0) {
+            gameReset();
+            list.removeChild(lives)
+         } else {
+            setTimeout(function(){
+                    list.removeChild(lives);
+                    player.select = true;
+                    }, 500); 
+                }
+
+    }
+    //win
+    function resetPlayerWin() {
                 //WINNER - resets player position
                 //adds slight speed buff for added flavor
                 speedBuff()
@@ -123,6 +131,19 @@ var Engine = (function(global) {
                 document.getElementById("multiVal").innerHTML = player.multi.toFixed(2);
                 document.getElementById("streakVal").innerHTML = player.level;
                 reset(); 
+    }
+    function checkCollisions() {
+        //Checks enemy position from player position *aoe 50 units
+        allEnemies.forEach(function(enemy) {
+            if((player.y-5 == enemy.y) && (player.x < enemy.x+50 && player.x > enemy.x-50)){
+                //reset pause
+                resetPlayer()
+ 
+             } 
+             if(player.y == 0) {
+                //WINNER - resets player position
+                //adds slight speed buff for added flavor
+                resetPlayerWin();
              } 
 
         });
