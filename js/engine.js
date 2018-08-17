@@ -75,12 +75,13 @@ var Engine = (function(global) {
         updateEntities(dt);
         checkCollisions();
         if (player.select == true) {
-            player.timer -= 1;
-            console.log(player.timer);
-            if (player.timer == 0) {
-                //TIME OUT//
-
+            if (player.timer >= 1) {
+                player.timer -= 1;
+            } else if (player.timer == 0) {
+                //time out function //
+                //reset
             }
+            console.log(player.timer);
         }
     }
 
