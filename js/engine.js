@@ -87,13 +87,7 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-
-        allItems.forEach(function(item) {
-            item.update(dt);
-        })
         player.update();
-
-
     }
 
     function checkCollisions() {
@@ -130,8 +124,10 @@ var Engine = (function(global) {
 
         });
         allItems.forEach(function(item) {
-        });      
-    } 
+            // give reward
+            // speed nurf?
+        })       
+    }
 
    //speed increase
     function speedBuff(enemy) {

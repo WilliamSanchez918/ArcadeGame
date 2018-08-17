@@ -29,13 +29,12 @@ PLAY: Begin by selecting your character!
 
 ###ATTRITION###
 Audio : N/A
-Images: All images were obtained via Udacity sample code which is avaliable at the link provided here: https://github.com/udacity/frontend-nanodegree-arcade-game
+
 
 
 JS: 
    1) https://www.w3.org/ was a HUGE Help in this progress, and not to mention all of the            resources provided via the Udacity team. 
          All code written from within this application is free for public use;
-   2) https://udacity.com Provided the original engine, resource loader, and app.js file. link to project is:  https://github.com/udacity/frontend-nanodegree-arcade-game
 
 
 
