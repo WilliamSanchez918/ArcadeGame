@@ -102,14 +102,17 @@ var Engine = (function(global) {
                  let list = document.getElementById("livesContainer");
                  let lives = document.getElementById("lives");
                  lives.classList.add("fadeOut")
-                 setTimeout(function(){
-                    list.removeChild(lives);
-                    player.select = true;
-                 }, 500);  
+
                  player.lives -= 1;
                  if (player.lives == 0) {
                     gameReset();
-                 }
+                    list.removeChild(lives)
+                 } else {
+                    setTimeout(function(){
+                            list.removeChild(lives);
+                            player.select = true;
+                            }, 500); 
+                        } 
              } 
              if(player.y == 0) {
                 //WINNER - resets player position
