@@ -120,7 +120,7 @@ var Engine = (function(global) {
                 speedBuff()
                 player.level += 1;
                 player.multi += .10;
-                document.getElementById("multiVal").innerHTML = player.multi;
+                document.getElementById("multiVal").innerHTML = player.multi.toFixed(2);
                 document.getElementById("streakVal").innerHTML = player.level;
                 reset(); 
              } 
