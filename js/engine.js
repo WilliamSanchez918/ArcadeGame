@@ -163,6 +163,12 @@ var Engine = (function(global) {
         document.getElementById("multiVal").innerHTML = player.multi;
         document.getElementById("streakVal").innerHTML = player.level;
     }
+
+    function lossAnimation() {
+        if (player.select == false) {
+            ctx.filter = 'blur(20px)';
+        } else ctx.filter = 'blur(0px)';
+    }
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
      * game tick (or loop of the game engine) because that's how games work -
@@ -203,6 +209,8 @@ var Engine = (function(global) {
                  * we're using them over and over.
                  */
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+                lossAnimation();
+
             }
         }
 
