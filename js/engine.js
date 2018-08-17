@@ -111,12 +111,14 @@ var Engine = (function(global) {
 
          player.lives -= 1;
          if (player.lives == 0) {
+            player.timer = 3000;
             gameReset();
             list.removeChild(lives)
          } else {
             setTimeout(function(){
                     list.removeChild(lives);
                     player.select = true;
+                    player.timer = 3000;
                     }, 500); 
                 }
 
@@ -128,6 +130,7 @@ var Engine = (function(global) {
                 speedBuff()
                 player.level += 1;
                 player.multi += .10;
+                player.timer = 3000;
                 document.getElementById("multiVal").innerHTML = player.multi.toFixed(2);
                 document.getElementById("streakVal").innerHTML = player.level;
                 reset(); 
