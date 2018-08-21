@@ -74,14 +74,30 @@ var Engine = (function(global) {
     function update(dt) {
         updateEntities(dt);
         checkCollisions();
+
+        //COUNTDOWN TIMER - PLAYER
         if (player.select == true) {
             if (player.timer >= 1) {
                 player.timer -= 1;
+                let elem = document.getElementById("myBar");
+                //GUI ELEMENTS 
+                let scaleTimer = player.timer / 30;
+                let num = player.timer / 100;
+                let numTimer = num.toFixed(0);
+                let height = scaleTimer.toFixed(2);
+
+
+                console.log(numTimer);
+                elem.style.height = height + '%';
+                elem.innerHTML = numTimer + '..';
+                //scaling 30 * 1
+
             } else if (player.timer == 0) {
+                resetPlayer();
                 //time out function //
                 //reset
             }
-            console.log(player.timer);
+            
         }
     }
 

@@ -79,19 +79,7 @@ class Player {
     }
 const allItems = [];
 
-function randomGen() { 
-        //randomly generates at each round start * multiplier adds .02 probability of appearance be default.
-        let randomNum = Math.floor((Math.random() * 100) + 1);
-        console.log(randomNum);
-        if (randomNum >= 95) {
-            console.log(`SUMMON BLUE GEM`);
-            allItems.push(new Item('images/Gem-Blue.png',10, 25, 430 ))
-        } else if (randomNum >= 80) {
-            console.log(`SUMMON2`);
-        } else if (randomNum >= 70) {
-            console.log(`SUMMON3`)
-        }
-    }    
+ 
 class Item {
     constructor(sprite = "", quality = 0, x = 0, y = 0,) {
         this.sprite = sprite;
@@ -124,6 +112,19 @@ const player = new Player();
 
 const defaultSpeeds = [];
 
+function randomGen() { 
+    //randomly generates at each round start * multiplier adds .02 probability of appearance be default.
+    let randomNum = Math.floor((Math.random() * 100) + 1);
+    console.log(randomNum);
+    if (randomNum >= 95) {
+        console.log(`SUMMON BLUE GEM`);
+        allItems.push(new Item('images/Gem-Blue.png',10, 25, 430 ))
+    } else if (randomNum >= 80) {
+        console.log(`SUMMON2`);
+    } else if (randomNum >= 70) {
+        console.log(`SUMMON3`)
+    }
+}   
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
