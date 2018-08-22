@@ -49,11 +49,22 @@ class Player {
         
 
 
-    }
+        }
+    pointsUpdate() {
+        let multiBonus = this.multi *50;
+        let timerBonus = this.timer /10;
+        console.log(this.timer);
+        console.log(timerBonus);
+        console.log(multiBonus);
+        let totalBonus = multiBonus + timerBonus;
+        this.points += this.points + totalBonus;
+        console.log(totalBonus);
+        document.getElementById("points").innerHTML = this.points.toFixed(0);
+        }
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 
-    }
+        }
     handleInput(e) {
             //player select default state is false; once a character is selected the event listener keys can be utilized for movement of player
         if (player.select === true) {
@@ -75,11 +86,41 @@ class Player {
             this.update(this.x, this.y)
             }
         }
+    reset(loss) {
+        if (loss == true) {
+        this.select = false;
+        this.x = 200;
+        this.y = 470;
+         //
+         let list = document.getElementById("livesContainer");
+         let lives = document.getElementById("lives");
+         lives.classList.add("fadeOut")
 
+         this.lives -= 1;
+         if (this.lives == 0) {
+            this.timer = 3000;
+            gameReset();
+            list.removeChild(lives)
+         } else {
+            setTimeout(function(){
+                    list.removeChild(lives);
+                    player.select = true;
+                    player.timer = 3000;
+                    }, 500); 
+                }
+        } else {
+            speedBuff()
+            this.pointsUpdate();
+            this.level += 1;
+            this.multi += .10;
+            this.timer = 3000;
+            document.getElementById("multiVal").innerHTML = this.multi.toFixed(2);
+            document.getElementById("streakVal").innerHTML = this.level;  
+            reset();
+        }
+        }
     }
-const allItems = [];
-
- 
+const allItems = []; 
 class Item {
     constructor(sprite = "", quality = 0, x = 0, y = 0,) {
         this.sprite = sprite;
@@ -109,7 +150,6 @@ const allEnemies = [
 ]
 
 const player = new Player();
-
 const defaultSpeeds = [];
 
 function randomGen() { 
@@ -125,6 +165,45 @@ function randomGen() {
         console.log(`SUMMON3`)
     }
 }   
+
+//game reset
+function gameReset() {
+        player.points = 0;
+        player.lives = 3;
+        player.level = 1
+        player.multi = 0;
+        speedNurf();
+        console.log('reset');
+        console.log(player.lives);
+        showDialog();
+        for (a = 0; a < 3; a++) {
+            let container = document.getElementById("livesContainer");
+            let newDiv = document.createElement("div");
+            container.appendChild(newDiv);
+            newDiv.id ='lives';
+        }
+        document.getElementById("multiVal").innerHTML = player.multi;
+        document.getElementById("streakVal").innerHTML = player.level;
+}
+function reset() {
+    player.x = 200;
+    player.y = 490;
+    // noop
+}
+
+//SPEED BUFF
+function speedBuff(enemy) {
+    allEnemies.forEach(function(enemy) {
+        enemy.speed += enemy.speed * player.multi;
+        })
+    }
+//SPEED NURF
+function speedNurf() {
+    allEnemies.forEach(function(enemy) {
+        //default speed assigned in enemy constructor func - app.js
+        enemy.speed = enemy.default;
+        })
+    }
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

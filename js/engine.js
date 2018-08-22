@@ -33,13 +33,16 @@ var Engine = (function(global) {
          * computer is) - hurray time!
          */
         var now = Date.now(),
-            dt = (now - lastTime) / 1000.0;
-
+            dt = (now - lastTime) / 1000.0;  
+        if (player.select == true) {
+                playerTimer()
+            }
         /* Call our update/render functions, pass along the time delta to
          * our update function since it may be used for smooth animation.
          */
         update(dt);
         render();
+        
 
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
@@ -75,30 +78,6 @@ var Engine = (function(global) {
         updateEntities(dt);
         checkCollisions();
 
-        //COUNTDOWN TIMER - PLAYER
-        if (player.select == true) {
-            if (player.timer >= 1) {
-                player.timer -= 1;
-                let elem = document.getElementById("myBar");
-                //GUI ELEMENTS 
-                let scaleTimer = player.timer / 30;
-                let num = player.timer / 100;
-                let numTimer = num.toFixed(0);
-                let height = scaleTimer.toFixed(2);
-
-
-                console.log(numTimer);
-                elem.style.height = height + '%';
-                elem.innerHTML = numTimer + '..';
-                //scaling 30 * 1
-
-            } else if (player.timer == 0) {
-                resetPlayer();
-                //time out function //
-                //reset
-            }
-            
-        }
     }
 
     /* This is called by the update function and loops through all of the
@@ -116,54 +95,47 @@ var Engine = (function(global) {
     }
 
     //collision functions()
-    //generic reset
-    function resetPlayer() {
-        player.select = false;
-        player.x = 200;
-        player.y = 470;
-         //
-         let list = document.getElementById("livesContainer");
-         let lives = document.getElementById("lives");
-         lives.classList.add("fadeOut")
+    //timer countdown
+    function playerTimer() {
+        if (player.select == true) {
+            if (player.timer >= 1) {
+                player.timer -= 1;
+                //GUI ELEMENTS 
+                let elem = document.getElementById("myBar");
+                    //down scaling by 30
+                let scaleTimer = player.timer / 30;
+                let num = player.timer / 100;
+                let numTimer = num.toFixed(0);
+                let height = scaleTimer.toFixed(2);
+ 
+                elem.style.height = height + '%';
+                elem.innerHTML = numTimer + '..';
 
-         player.lives -= 1;
-         if (player.lives == 0) {
-            player.timer = 3000;
-            gameReset();
-            list.removeChild(lives)
-         } else {
-            setTimeout(function(){
-                    list.removeChild(lives);
-                    player.select = true;
-                    player.timer = 3000;
-                    }, 500); 
-                }
 
+            } else if (player.timer == 0) {
+                loss = true;
+                player.reset(loss);
+                //time out function //
+                //reset
+            }
+            
+        }
     }
-    //win
-    function resetPlayerWin() {
-                //WINNER - resets player position
-                //adds slight speed buff for added flavor
-                speedBuff()
-                player.level += 1;
-                player.multi += .10;
-                player.timer = 3000;
-                document.getElementById("multiVal").innerHTML = player.multi.toFixed(2);
-                document.getElementById("streakVal").innerHTML = player.level;
-                reset(); 
-    }
+
     function checkCollisions() {
         //Checks enemy position from player position *aoe 50 units
         allEnemies.forEach(function(enemy) {
             if((player.y-5 == enemy.y) && (player.x < enemy.x+50 && player.x > enemy.x-50)){
                 //reset pause
-                resetPlayer()
+                loss = true;
+                player.reset(loss);
  
              } 
              if(player.y == 0) {
                 //WINNER - resets player position
                 //adds slight speed buff for added flavor
-                resetPlayerWin();
+                loss = false;
+                player.reset();
              } 
 
         });
@@ -173,37 +145,6 @@ var Engine = (function(global) {
         })       
     }
 
-   //speed increase
-    function speedBuff(enemy) {
-        allEnemies.forEach(function(enemy) {
-            enemy.speed += enemy.speed * player.multi;
-        })
-    }
-    //speed reset
-    function speedNurf() {
-        allEnemies.forEach(function(enemy) {
-            //default speed assigned in enemy constructor func - app.js
-            enemy.speed = enemy.default;
-        })
-    }
-    //game reset
-    function gameReset() {
-        player.lives = 3;
-        player.level = 1
-        player.multi = 0;
-        speedNurf();
-        console.log('reset');
-        console.log(player.lives);
-        showDialog();
-        for (a = 0; a < 3; a++) {
-            let container = document.getElementById("livesContainer");
-            let newDiv = document.createElement("div");
-            container.appendChild(newDiv);
-            newDiv.id ='lives';
-        }
-        document.getElementById("multiVal").innerHTML = player.multi;
-        document.getElementById("streakVal").innerHTML = player.level;
-    }
 
     function lossAnimation() {
         if (player.select == false) {
@@ -277,15 +218,7 @@ var Engine = (function(global) {
         player.render();
     }
 
-    /* This function does nothing but it could have been a good place to
-     * handle game reset states - maybe a new game menu or a game over screen
-     * those sorts of things. It's only called once by the init() method.
-     */
-    function reset() {
-        player.x = 200;
-        player.y = 490;
-        // noop
-    }
+
 
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
